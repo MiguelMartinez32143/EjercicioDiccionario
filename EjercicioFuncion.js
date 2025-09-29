@@ -1,6 +1,5 @@
 // --------- "Tupla" simulada con Object.freeze ----------
 const usuarioBase = Object.freeze(["Miguel", 19]); 
-// usuarioBase[0] = "Otro"; // Esto daría error en modo estricto, se congela.
 
 // --------- Lista de claves y valores ----------
 const claves = ["nombre", "edad", "ciudad"];
@@ -28,25 +27,47 @@ let usuarios = [
   { nombre: "Carlos", edad: 30, ciudad: "Cali" }
 ];
 
-// --------- Función para mostrar usuarios con ciclo/bucle ----------
+// --------- Función para mostrar usuarios ----------
 function mostrarUsuarios(lista) {
-  console.log("Lista de usuarios:");
+  let texto = "Lista de usuarios:\n";
   for (let i = 0; i < lista.length; i++) {
     const u = lista[i];
-    console.log(`- ${u.nombre}, ${u.edad} años, vive en ${u.ciudad}`);
+    texto += `- ${u.nombre}, ${u.edad} años, vive en ${u.ciudad}\n`;
   }
+  alert(texto);
 }
-
-// --------- Usar las funciones ----------
-mostrarUsuarios(usuarios);
 
 // --------- Agregar nuevo usuario ----------
 function agregarUsuario(nombre, edad, ciudad) {
   const nuevo = { nombre, edad, ciudad };
   usuarios.push(nuevo);
-  console.log("Usuario agregado correctamente.");
+  alert("Usuario agregado correctamente.");
 }
 
-// --------- Prueba ----------
-agregarUsuario("Laura", 25, "Barranquilla");
-mostrarUsuarios(usuarios);
+// --------- Menú interactivo ----------
+let opcion;
+do {
+  opcion = prompt(
+    "Menú:\n1. Ver usuarios\n2. Agregar usuario\n3. Salir\nElige una opción:"
+  );
+
+  if (opcion === "1") {
+    mostrarUsuarios(usuarios);
+
+  } else if (opcion === "2") {
+    const nombre = prompt("Nombre:");
+    const edad = parseInt(prompt("Edad:"));
+    const ciudad = prompt("Ciudad:");
+    if (!nombre || !edad || !ciudad) {
+      alert("Campos inválidos.");
+    } else {
+      agregarUsuario(nombre, edad, ciudad);
+    }
+
+  } else if (opcion === "3") {
+    alert("Saliendo del programa...");
+  } else {
+    alert("Opción no válida.");
+  }
+
+} while (opcion !== "3");
